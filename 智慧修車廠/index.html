@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepairShop Pro ERP | 智慧修車廠系統</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="login-screen" class="container">
+        <h1>🏁 RepairShop ERP 智慧系統</h1>
+        <div class="card login-card">
+            <div class="login-tips">
+                <p>📌 快速登入提示：</p>
+                <ul>
+                    <li>管理員密碼: <code>admin123</code></li>
+                    <li>技師姓名: <code>李組長</code></li>
+                    <li>客戶電話: <code>0910-123-456</code></li>
+                </ul>
+            </div>
+            <div class="role-selector">
+                <button onclick="setLoginRole('Customer')" id="btn-role-cust" class="active">客戶</button>
+                <button onclick="setLoginRole('Technician')" id="btn-role-tech">技師</button>
+                <button onclick="setLoginRole('Admin')" id="btn-role-admin">管理員</button>
+            </div>
+            <div id="login-inputs">
+                </div>
+            <button onclick="handleLogin()" class="btn-primary">登入系統</button>
+        </div>
+    </div>
+
+    <div id="main-app" style="display: none;">
+        <nav class="sidebar">
+            <div class="user-info">
+                <i class="fa fa-user-circle fa-3x"></i>
+                <h3 id="display-user-name">使用者名稱</h3>
+                <span id="display-user-role" class="badge">角色</span>
+            </div>
+            <ul id="nav-links">
+                </ul>
+            <button onclick="handleLogout()" class="btn-logout"><i class="fa fa-sign-out-alt"></i> 登出系統</button>
+        </nav>
+
+        <main class="content">
+            <div id="content-area"></div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
