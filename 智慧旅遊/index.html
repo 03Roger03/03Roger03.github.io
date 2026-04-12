@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅遊推薦系統 - 李基旗專案</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="toolbar">
+            <h2><i class="fa fa-paper-plane"></i> 旅遊交通推薦系統</h2>
+            <div id="weather-summary" class="weather-badge-top" style="display: none;"></div>
+        </div>
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="showStep(1)">步驟 1: 旅客資料</button>
+            <button class="tab-btn" onclick="showStep(2)">步驟 2: 旅遊類別</button>
+            <button class="tab-btn" id="tab3-btn" onclick="showStep(3)" disabled>步驟 3: 推薦結果</button>
+            <button class="tab-btn" id="tab4-btn" onclick="showStep(4)" disabled>步驟 4: 地圖與圖片</button>
+        </nav>
+    </header>
+
+    <main id="app">
+        <section id="step1" class="step-content active">
+            <div class="card">
+                <h3>👤 旅客基本資料</h3>
+                <div class="input-group">
+                    <label>大名：</label>
+                    <input type="text" id="username" placeholder="請輸入您的姓名">
+                </div>
+                <div class="input-group">
+                    <label>人數：</label>
+                    <input type="number" id="people" value="1" min="1">
+                </div>
+                <button class="btn-next" onclick="showStep(2)">下一步 <i class="fa fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <section id="step2" class="step-content">
+            <div class="card">
+                <h3>🎯 目的地與偏好</h3>
+                <div class="input-group">
+                    <label>出發地：</label>
+                    <input type="text" id="start_place" placeholder="例如：台北車站">
+                </div>
+                <div class="input-group">
+                    <label>目的地：</label>
+                    <input type="text" id="end_place" placeholder="例如：花蓮火車站">
+                </div>
+                <div class="input-group">
+                    <label>出門目的：</label>
+                    <select id="purpose">
+                        <option value="food">美食探索</option>
+                        <option value="photo">攝影打卡</option>
+                        <option value="stay">優質住宿</option>
+                        <option value="fun">娛樂體驗</option>
+                    </select>
+                </div>
+                <button class="btn-search" id="search-btn" onclick="handleSearch()">
+                    <i class="fa fa-search"></i> 查詢交通與推薦
+                </button>
+            </div>
+        </section>
+
+        <section id="step3" class="step-content">
+            <div class="card">
+                <h3 id="welcome-msg">精選推薦結果</h3>
+                <p id="weather-tip" class="tip-box"></p>
+                
+                <div class="transport-grid" id="transport-results">
+                    </div>
+
+                <h3>地點推薦</h3>
+                <div id="recommendation-list" class="list-container">
+                    </div>
+
+                <div class="action-bar">
+                    <button class="btn-next" onclick="showStep(4)">查看詳細地圖與美照</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="step4" class="step-content">
+            <div class="map-container">
+                <div class="side-panel" id="side-recs">
+                    </div>
+                <div class="map-view">
+                    <div id="transport-visual" class="transport-header">
+                        <span id="visual-mode-text">請選擇交通方式</span>
+                        <div id="weather-badge-map" class="badge"></div>
+                    </div>
+                    <div class="mode-selector">
+                        <button class="mode-btn active" onclick="changeTransportMode('CAR')"><i class="fa fa-car"></i> 自駕</button>
+                        <button class="mode-btn" id="hsr-btn" onclick="changeTransportMode('HSR')"><i class="fa fa-bolt"></i> 高鐵</button>
+                        <button class="mode-btn" onclick="changeTransportMode('TRA')"><i class="fa fa-train"></i> 台鐵</button>
+                        <button class="mode-btn" onclick="changeTransportMode('BUS')"><i class="fa fa-bus"></i> 客運</button>
+                    </div>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAok-Ur1aqmDzkCdt45NSBpNb4wETXEYZc&libraries=places"></script>
+    <script src="script.js"></script>
+</body>
+</html>
