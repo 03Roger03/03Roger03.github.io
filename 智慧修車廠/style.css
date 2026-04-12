@@ -1,0 +1,142 @@
+:root {
+    --bg-color: #0e1117;
+    --card-bg: #1e2129;
+    --primary-color: #ff4b4b;
+    --text-color: #ffffff;
+    --border-color: #3d404a;
+    --secondary-text: #808495;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* 卡片樣式 */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    width: 90%;
+    max-width: 500px;
+}
+
+/* 登入樣式 */
+.login-tips {
+    background: rgba(255, 75, 75, 0.1);
+    border-left: 4px solid var(--primary-color);
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+.role-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.role-selector button {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--secondary-text);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.role-selector button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+input {
+    width: 100%;
+    background: #0e1117;
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 4px 15px rgba(255,75,75,0.4);
+}
+
+/* 主應用程式佈局 */
+#main-app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+/* 表格樣式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: rgba(255, 75, 75, 0.1);
+    color: var(--primary-color);
+}
+
+/* 數據指標 */
+.metric {
+    font-size: 2em;
+    color: var(--primary-color);
+    font-weight: bold;
+}
