@@ -1,0 +1,623 @@
+[
+    {
+        "id": "0754958db1fe8867",
+        "type": "tab",
+        "label": "旅遊推薦",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fea39522d299e2f2",
+        "type": "ui_template",
+        "z": "0754958db1fe8867",
+        "group": "a591c83bef0fdc91",
+        "name": "全域 CSS 美化設定 (高對比)",
+        "order": 1,
+        "width": 10,
+        "height": 2,
+        "format": "<style>\n    /* 1. 設定全域背景圖片 */\n    body {\n        /* 使用您指定的 Google Drive 圖片 */\n        background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80');\n        background-size: cover;\n        background-position: center;\n        background-attachment: fixed;\n        background-repeat: no-repeat;\n        background-color: #333; /* 圖片載入前的深色底 */\n    }\n    \n    #dashboard, md-content, .md-content {\n        background-color: transparent !important;\n    }\n\n    /* 2. 卡片優化：改為高不透明度白色，確保文字清晰 */\n    md-card, .md-card {\n        background-color: rgba(255, 255, 255, 0.96) !important; /* 96% 白，幾乎不透 */\n        border-radius: 12px !important;\n        box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;\n        color: #333 !important; /* 強制卡片內文字深灰 */\n    }\n\n    /* 3. 標題列與頁籤區：加上深色底色，避免跟背景混在一起 */\n    md-toolbar, md-tabs-wrapper {\n        background: rgba(0, 77, 64, 0.9) !important; /* 深綠色半透明底 */\n        color: white !important;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.3);\n    }\n    \n    /* 4. 輸入框與下拉選單優化 (高對比) */\n    md-input-container label {\n        color: #0d47a1 !important; /* 深藍色標籤，超清楚 */\n        font-weight: 900 !important;\n        opacity: 1 !important;\n    }\n    md-input-container .md-input {\n        border-color: #0d47a1 !important; /* 深藍色底線 */\n        color: #000 !important; /* 輸入內容全黑 */\n        font-weight: bold;\n    }\n    /* 下拉選單文字 */\n    md-select-value span {\n        color: #000 !important;\n        font-weight: bold;\n    }\n    \n    /* 5. 按鈕美化 */\n    .md-button.md-raised:not([disabled]) {\n        border-radius: 25px;\n        font-weight: bold;\n        padding: 5px 25px;\n        box-shadow: 0 4px 10px rgba(0,0,0,0.3);\n    }\n    \n    /* 6. 頁籤 (Tab) 文字 */\n    md-tab-item {\n        color: rgba(255,255,255,0.7) !important;\n        font-size: 1.1em;\n    }\n    md-tab-item.md-active {\n        color: #ffd740 !important; /* 選中時亮黃色 */\n        font-weight: bold;\n    }\n    md-tabs-canvas {\n        background: transparent !important;\n    }\n    \n    /* 7. 分組標題 */\n    .nr-dashboard-template .md-toolbar-tools h2, \n    md-toolbar h2 {\n        color: #fff !important;\n        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 380,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7b070fea9d1e858f",
+        "type": "change",
+        "z": "0754958db1fe8867",
+        "name": "設定TDX金鑰",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tdx_api_key",
+                "pt": "flow",
+                "to": "4914225d-cb33-4cf5-9a8f-028a35ff34e7",
+                "tot": "str"
+            }
+        ],
+        "x": 600,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0bc5d31a8fa9732f",
+        "type": "ui_text_input",
+        "z": "0754958db1fe8867",
+        "name": "姓名",
+        "label": "大名：",
+        "group": "a591c83bef0fdc91",
+        "order": 2,
+        "width": 10,
+        "height": 2,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "username",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "796006e347de5c0d"
+            ]
+        ]
+    },
+    {
+        "id": "62deae679698a0f5",
+        "type": "ui_text_input",
+        "z": "0754958db1fe8867",
+        "name": "人數",
+        "label": "人數：",
+        "group": "a591c83bef0fdc91",
+        "order": 3,
+        "width": 10,
+        "height": 2,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "people",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "77afe40d8d41e34a"
+            ]
+        ]
+    },
+    {
+        "id": "796006e347de5c0d",
+        "type": "change",
+        "z": "0754958db1fe8867",
+        "name": "存姓名",
+        "rules": [
+            {
+                "t": "set",
+                "p": "user_name",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "77afe40d8d41e34a",
+        "type": "change",
+        "z": "0754958db1fe8867",
+        "name": "存人數",
+        "rules": [
+            {
+                "t": "set",
+                "p": "people",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "x": 300,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e77c40546b95c7e",
+        "type": "ui_text_input",
+        "z": "0754958db1fe8867",
+        "name": "出發地",
+        "label": "出發地（請輸入完整地名，如：台北車站）",
+        "group": "1e3a5db5e1670133",
+        "order": 1,
+        "width": 8,
+        "height": 2,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "start_place",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "ab8d42fc374f89ab"
+            ]
+        ]
+    },
+    {
+        "id": "35e15ca684d218d7",
+        "type": "ui_text_input",
+        "z": "0754958db1fe8867",
+        "name": "目的地",
+        "label": "目的地（請輸入完整地名，如：花蓮火車站）",
+        "group": "1e3a5db5e1670133",
+        "order": 2,
+        "width": 8,
+        "height": 2,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "end_place",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "ab8d42fc374f89ab"
+            ]
+        ]
+    },
+    {
+        "id": "0f3d3ba4a606cc0e",
+        "type": "ui_dropdown",
+        "z": "0754958db1fe8867",
+        "name": "出門目的",
+        "label": "出門目的",
+        "group": "1e3a5db5e1670133",
+        "order": 3,
+        "width": 8,
+        "height": 1,
+        "passthru": true,
+        "options": [
+            {
+                "label": "美食",
+                "value": "food",
+                "type": "str"
+            },
+            {
+                "label": "攝影/打卡",
+                "value": "photo",
+                "type": "str"
+            },
+            {
+                "label": "住宿",
+                "value": "stay",
+                "type": "str"
+            },
+            {
+                "label": "娛樂",
+                "value": "fun",
+                "type": "str"
+            }
+        ],
+        "topic": "purpose",
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "ab8d42fc374f89ab"
+            ]
+        ]
+    },
+    {
+        "id": "0f5f0d77a2f0604b",
+        "type": "ui_button",
+        "z": "0754958db1fe8867",
+        "name": "查詢交通與推薦",
+        "group": "1e3a5db5e1670133",
+        "order": 4,
+        "width": 8,
+        "height": 2,
+        "passthru": true,
+        "label": "查詢",
+        "color": "white",
+        "bgcolor": "#1976d2",
+        "icon": "fa-search",
+        "payload": "",
+        "topic": "search",
+        "x": 140,
+        "y": 420,
+        "wires": [
+            [
+                "ab8d42fc374f89ab"
+            ]
+        ]
+    },
+    {
+        "id": "ab8d42fc374f89ab",
+        "type": "function",
+        "z": "0754958db1fe8867",
+        "name": "準備地理編碼",
+        "func": "if(msg.topic === 'start_place') flow.set('start_place', msg.payload);\nif(msg.topic === 'end_place') flow.set('end_place', msg.payload);\nif(msg.topic === 'purpose') flow.set('selected_purpose', msg.payload);\n\nif (msg.topic !== 'search') return null;\n\nvar start = flow.get('start_place');\nvar end = flow.get('end_place');\nif(!start || !end){\n  node.warn('請輸入地點');\n  return null;\n}\n\nmsg.url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(start);\nmsg.headers = { 'User-Agent': 'NodeRED-Travel-Bot/1.0' };\nmsg.topic = 'geocode_start';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "4ce8249e67d7b426"
+            ]
+        ]
+    },
+    {
+        "id": "4ce8249e67d7b426",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "查詢出發地座標",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 560,
+        "y": 340,
+        "wires": [
+            [
+                "eb81ea2091378777"
+            ]
+        ]
+    },
+    {
+        "id": "eb81ea2091378777",
+        "type": "function",
+        "z": "0754958db1fe8867",
+        "name": "解析出發 & 準備目的地",
+        "func": "if(msg.payload && msg.payload.length > 0){\n    flow.set('start_coords', { lat: msg.payload[0].lat, lon: msg.payload[0].lon });\n} else {\n    flow.set('start_coords', { lat: '25.0478', lon: '121.5170' });\n}\n\nvar end = flow.get('end_place');\nmsg.url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(end);\nmsg.headers = { 'User-Agent': 'NodeRED-Travel-Bot/1.0' };\nmsg.topic = 'geocode_end';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 340,
+        "wires": [
+            [
+                "5460ca7b7e97ab96"
+            ]
+        ]
+    },
+    {
+        "id": "5460ca7b7e97ab96",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "查詢目的地座標",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 960,
+        "y": 340,
+        "wires": [
+            [
+                "c7b97c3292df1b1c"
+            ]
+        ]
+    },
+    {
+        "id": "c7b97c3292df1b1c",
+        "type": "function",
+        "z": "0754958db1fe8867",
+        "name": "儲存目的地 & 準備天氣",
+        "func": "if(msg.payload && msg.payload.length > 0){\n    flow.set('end_coords', { lat: msg.payload[0].lat, lon: msg.payload[0].lon });\n} else {\n    flow.set('end_coords', { lat: '23.85', lon: '120.91' });\n}\n\nvar ecoord = flow.get('end_coords');\n// 準備天氣 API (Open-Meteo)\nmsg.url = `https://api.open-meteo.com/v1/forecast?latitude=${ecoord.lat}&longitude=${ecoord.lon}&current_weather=true&timezone=auto`;\nmsg.topic = 'weather';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1160,
+        "y": 340,
+        "wires": [
+            [
+                "53606f442ae3d929"
+            ]
+        ]
+    },
+    {
+        "id": "53606f442ae3d929",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "查詢天氣",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 440,
+        "y": 460,
+        "wires": [
+            [
+                "20daa9d4ce8a1e57"
+            ]
+        ]
+    },
+    {
+        "id": "20daa9d4ce8a1e57",
+        "type": "function",
+        "z": "0754958db1fe8867",
+        "name": "建立交通 API 請求 (含天氣)",
+        "func": "\n// 存天氣資料\nif(msg.topic === 'weather' && msg.payload && msg.payload.current_weather){\n    flow.set('weather_data', msg.payload.current_weather);\n}\n\nvar start = flow.get('start_place');\nvar s_coord = flow.get('start_coords');\nvar e_coord = flow.get('end_coords');\nvar key = flow.get('tdx_api_key') || '';\n\nvar base = 'https://tdx.transportdata.tw/api/basic/';\nvar busUrl = base + 'Bus/Route/City/Taipei?$filter=contains(RouteName/En,\\''+encodeURIComponent(start)+'\\')';\nvar traUrl = base + 'Rail/TRA/Station?$filter=contains(StationName/En,\\''+encodeURIComponent(start)+'\\')';\nvar hsrUrl = base + 'Rail/HSR/Station?$filter=contains(StationName/En,\\''+encodeURIComponent(start)+'\\')';\n\nvar carUrl = 'https://router.project-osrm.org/route/v1/driving/' + \n             s_coord.lon + ',' + s_coord.lat + ';' + \n             e_coord.lon + ',' + e_coord.lat + '?overview=full';\n\nvar m1 = { topic: 'bus', url: busUrl, headers: { 'authorization': key } };\nvar m2 = { topic: 'tra', url: traUrl, headers: { 'authorization': key } };\nvar m3 = { topic: 'hsr', url: hsrUrl, headers: { 'authorization': key } };\nvar m4 = { topic: 'car', url: carUrl };\n\nreturn [m1,m2,m3,m4,{payload:{tab:'STEP 3: 推薦結果'}}];\n",
+        "outputs": 5,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 560,
+        "wires": [
+            [
+                "22aafd981c309de1"
+            ],
+            [
+                "8e884cb56f8b9c66"
+            ],
+            [
+                "f3e916344bb9ff08"
+            ],
+            [
+                "35354ff43818d486"
+            ],
+            [
+                "a44c20590b94744f"
+            ]
+        ]
+    },
+    {
+        "id": "22aafd981c309de1",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "TDX Bus",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 720,
+        "y": 520,
+        "wires": [
+            [
+                "10ea426ab2854cbd"
+            ]
+        ]
+    },
+    {
+        "id": "8e884cb56f8b9c66",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "TDX TRA",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 720,
+        "y": 560,
+        "wires": [
+            [
+                "10ea426ab2854cbd"
+            ]
+        ]
+    },
+    {
+        "id": "f3e916344bb9ff08",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "TDX HSR",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 720,
+        "y": 600,
+        "wires": [
+            [
+                "10ea426ab2854cbd"
+            ]
+        ]
+    },
+    {
+        "id": "35354ff43818d486",
+        "type": "http request",
+        "z": "0754958db1fe8867",
+        "name": "OSRM Car Route",
+        "method": "GET",
+        "ret": "obj",
+        "url": "",
+        "x": 730,
+        "y": 640,
+        "wires": [
+            [
+                "10ea426ab2854cbd"
+            ]
+        ]
+    },
+    {
+        "id": "10ea426ab2854cbd",
+        "type": "function",
+        "z": "0754958db1fe8867",
+        "name": "彙整資料 & 智慧判斷 & 生成關鍵字",
+        "func": "\nvar trans = flow.get('transport_results') || {};\nvar carData = flow.get('car_data') || null;\n\n// 儲存原始數據\ntrans[msg.topic] = msg.payload;\n\nif(msg.topic === 'car' && msg.payload.routes && msg.payload.routes.length > 0) {\n    carData = msg.payload.routes[0];\n    flow.set('car_data', carData);\n}\n\nflow.set('transport_results', trans);\ncarData = flow.get('car_data');\n\n// --- 天氣解析 ---\nvar weather = flow.get('weather_data') || {temperature: 25, weathercode: 0};\nvar wCode = weather.weathercode;\nvar wStatus = \"晴天\";\nvar wIcon = \"☀️\";\nvar wTip = \"天氣很棒，適合戶外活動！\";\n\nif (wCode >= 1 && wCode <= 3) { wStatus = \"多雲\"; wIcon = \"☁️\"; wTip = \"舒服的天氣，適合走走。\"; }\nelse if (wCode >= 45 && wCode <= 48) { wStatus = \"起霧\"; wIcon = \"🌫️\"; wTip = \"視線不佳，開車請小心。\"; }\nelse if (wCode >= 51 && wCode <= 67) { wStatus = \"有雨\"; wIcon = \"🌧️\"; wTip = \"建議攜帶雨具，可安排室內行程。\"; }\nelse if (wCode >= 71) { wStatus = \"雷雨/雪\"; wIcon = \"⛈️\"; wTip = \"天氣不穩定，請注意安全。\"; }\n\nvar weatherInfo = {\n    temp: weather.temperature,\n    status: wStatus,\n    icon: wIcon,\n    tip: wTip\n};\n\n\n// --- 計算交通邏輯 & 地理判斷 ---\nvar estimates = {};\nvar e_place = flow.get('end_place') || \"\";\n\n// 建立「無高鐵城市」黑名單\nvar noHsrCities = [\"花蓮\", \"台東\", \"臺東\", \"宜蘭\", \"南投\", \"基隆\", \"屏東\", \"澎湖\", \"金門\", \"馬祖\", \"連江\"];\nvar isHsrAvailable = true;\n\n// 檢查目的地是否在黑名單中\nfor(var k=0; k<noHsrCities.length; k++){\n    if(e_place.indexOf(noHsrCities[k]) > -1){\n        isHsrAvailable = false;\n        break;\n    }\n}\n\nif(carData) {\n    var distKm = carData.distance / 1000;\n    var durationSec = carData.duration;\n    function formatTime(sec) {\n        var h = Math.floor(sec / 3600);\n        var m = Math.floor((sec % 3600) / 60);\n        return (h > 0) ? h + \" 小時 \" + m + \" 分\" : m + \" 分鐘\";\n    }\n    \n    estimates.car = { time: formatTime(durationSec), price: \"油資約 NT$ \" + Math.round(distKm * 3) };\n    \n    // 根據地理位置決定顯示內容\n    if(isHsrAvailable) {\n        estimates.hsr = { \n            time: formatTime(durationSec * 0.4), \n            price: \"票價約 NT$ \" + Math.round(distKm * 4.5),\n            valid: true\n        };\n    } else {\n        estimates.hsr = { \n            time: \"未開通\", \n            price: \"無高鐵直達\",\n            valid: false\n        };\n    }\n    \n    estimates.tra = { time: formatTime(durationSec * 0.8), price: \"票價約 NT$ \" + Math.round(distKm * 2.2) };\n    estimates.bus = { time: formatTime(durationSec * 1.5), price: \"票價約 NT$ \" + Math.round(distKm * 1.8) };\n} else {\n    estimates = { car: {time: \"--\", price: \"--\"}, hsr: {time: \"--\", price: \"--\"}, tra: {time: \"--\", price: \"--\"}, bus: {time: \"--\", price: \"--\"} };\n}\n\n// --- 推薦內容 (生成真實類別搜尋關鍵字) ---\nvar purpose = flow.get('selected_purpose') || 'food';\nvar people = flow.get('people') || 1;\nvar userName = flow.get('user_name') || '旅客';\nvar e_coord = flow.get('end_coords'); \nvar s_place = flow.get('start_place');\nvar centerLat = parseFloat(e_coord.lat);\nvar centerLon = parseFloat(e_coord.lon);\n\nvar recs = [];\nvar baseRecs = [];\n\n// 關鍵修改：根據不同目的，產生完全不同的搜索關鍵字\n// 這樣前端 Google Maps 搜出來的點位就會完全不同\nif(purpose==='food'){\n  baseRecs.push({name: '在地必吃美食', price:'NT$50-120', note:'網友熱推', query: e_place + ' 必吃美食'});\n  baseRecs.push({name: '特色主題餐廳', price:'NT$200-500', note:'氣氛佳', query: e_place + ' 特色餐廳'});\n  baseRecs.push({name: '人氣甜點/咖啡', price:'NT$100-300', note:'下午茶首選', query: e_place + ' 甜點 咖啡'});\n  baseRecs.push({name: '夜市小吃', price:'NT$30-150', note:'宵夜好去處', query: e_place + ' 夜市'});\n} else if(purpose==='stay'){\n  baseRecs.push({name: '精選星級飯店', note:'舒適享受', query: e_place + ' 飯店'});\n  baseRecs.push({name: '特色風格民宿', note:'體驗在地生活', query: e_place + ' 民宿'});\n  baseRecs.push({name: '平價青年旅館', note:'背包客首選', query: e_place + ' 青年旅館'});\n  baseRecs.push({name: '度假村/溫泉旅店', note:'放鬆身心', query: e_place + ' 度假村'});\n} else if(purpose==='photo'){\n  baseRecs.push({name: '熱門打卡景點', note:'拍照聖地', query: e_place + ' 景點'});\n  baseRecs.push({name: '自然風景區', note:'風景優美', query: e_place + ' 風景區'});\n  baseRecs.push({name: '歷史古蹟', note:'文化氣息', query: e_place + ' 古蹟'});\n  baseRecs.push({name: '私房秘境', note:'人少好逛', query: e_place + ' 秘境'});\n} else { // fun\n  baseRecs.push({name: '遊樂園/休閒農場', note:'親子同樂', query: e_place + ' 遊樂園'});\n  baseRecs.push({name: '博物館/美術館', note:'知性之旅', query: e_place + ' 博物館'});\n  baseRecs.push({name: '戶外體驗活動', note:'刺激好玩', query: e_place + ' 體驗活動'});\n  baseRecs.push({name: '購物中心/商圈', note:'逛街血拼', query: e_place + ' 購物中心'});\n}\n\nbaseRecs.forEach(function(r, i){\n    var n = r.note;\n    if(people > 5) n += \" (適合多人)\";\n    if(wCode >= 50 && purpose !== 'food') n += \" (雨天備案：室內參觀)\";\n    r.note = n;\n    recs.push(r);\n});\n\nvar map = { lat: centerLat, lng: centerLon, pins: recs };\nvar out = { payload: { \n    transport: trans, \n    estimates: estimates, \n    recommendations: recs, \n    map: map,\n    weather: weatherInfo,\n    userInfo: { name: userName, people: people, start: s_place, destination: e_place }\n}};\n\nreturn [out, out];\n",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 980,
+        "y": 580,
+        "wires": [
+            [
+                "53e75890cbb7c62a"
+            ],
+            [
+                "bdd35349c59f1f34"
+            ]
+        ]
+    },
+    {
+        "id": "53e75890cbb7c62a",
+        "type": "ui_template",
+        "z": "0754958db1fe8867",
+        "group": "119bc25949fa960d",
+        "name": "推薦結果（列表）",
+        "order": 1,
+        "width": 17,
+        "height": 17,
+        "format": "<div>\n  <div style=\"display:flex; justify-content:space-between; align-items:center;\">\n    <h3>親愛的 {{msg.payload.userInfo.name}}，前往「{{msg.payload.userInfo.destination}}」的計畫：</h3>\n    <div style=\"background:#e0f7fa; padding:5px 10px; border-radius:15px; color:#006064; font-size:0.9em;\">\n        {{msg.payload.weather.icon}} {{msg.payload.weather.temp}}°C {{msg.payload.weather.status}}\n    </div>\n  </div>\n  <div style=\"color:#666; font-size:0.9em; margin-bottom:15px;\">\n      💡 小貼士：{{msg.payload.weather.tip}}\n  </div>\n  \n  <!-- 交通卡片區 -->\n  <div style=\"display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;\">\n      \n      <!-- 開車 (藍色) -->\n      <div style=\"flex:1; min-width:140px; background:#e3f2fd; padding:10px; border-radius:8px; border-left:5px solid #2196f3\">\n          <div style=\"font-weight:bold; color:#1565c0\"><i class=\"fa fa-car\"></i> 自行開車</div>\n          <div style=\"font-size:1.2em; margin:5px 0\">{{msg.payload.estimates.car.time}}</div>\n          <div style=\"font-size:0.9em; color:#555\">{{msg.payload.estimates.car.price}}</div>\n      </div>\n\n      <!-- 高鐵 (根據 valid 顯示或隱藏) -->\n      <div style=\"flex:1; min-width:140px; padding:10px; border-radius:8px; border-left:5px solid;\" \n           ng-if=\"msg.payload.estimates.hsr.valid\"\n           ng-style=\"{'background': '#fff3e0', 'border-color': '#ff9800'}\">\n          <div style=\"font-weight:bold; color: #ef6c00;\">\n               <i class=\"fa fa-train\"></i> 高鐵\n          </div>\n          <div style=\"font-size:1.2em; margin:5px 0; color: #000;\">\n               {{msg.payload.estimates.hsr.time}}\n          </div>\n          <div style=\"font-size:0.9em; color:#555\">{{msg.payload.estimates.hsr.price}}</div>\n      </div>\n      \n      <!-- 台鐵 (綠色) -->\n      <div style=\"flex:1; min-width:140px; background:#e8f5e9; padding:10px; border-radius:8px; border-left:5px solid #4caf50\">\n          <div style=\"font-weight:bold; color:#2e7d32\"><i class=\"fa fa-subway\"></i> 台鐵火車</div>\n          <div style=\"font-size:1.2em; margin:5px 0\">{{msg.payload.estimates.tra.time}}</div>\n          <div style=\"font-size:0.9em; color:#555\">{{msg.payload.estimates.tra.price}}</div>\n      </div>\n\n      <!-- 公車 (紫色) -->\n      <div style=\"flex:1; min-width:140px; background:#f3e5f5; padding:10px; border-radius:8px; border-left:5px solid #9c27b0\">\n          <div style=\"font-weight:bold; color:#7b1fa2\"><i class=\"fa fa-bus\"></i> 公車客運</div>\n          <div style=\"font-size:1.2em; margin:5px 0\">{{msg.payload.estimates.bus.time}}</div>\n          <div style=\"font-size:0.9em; color:#555\">{{msg.payload.estimates.bus.price}}</div>\n      </div>\n  </div>\n\n  <h3>{{msg.payload.userInfo.destination}} 精選推薦</h3>\n  <div ng-repeat=\"r in msg.payload.recommendations\" style=\"border-bottom:1px solid #eee; padding:10px 0; display:flex; align-items:center;\">\n    <img id=\"list-img-{{$index}}\" src=\"https://via.placeholder.com/60?text=Loading\" style=\"width:60px; height:60px; border-radius:5px; object-fit:cover; margin-right:15px;\">\n    <div style=\"flex:1;\">\n        <strong style=\"font-size:1.1em\">{{r.name}}</strong>\n        <div style=\"color:#666; font-size:0.9em\">{{r.note}}</div>\n    </div>\n    <div style=\"text-align:right; color:#d84315; font-weight:bold\">\n        {{r.price || r.when || ''}}\n    </div>\n  </div>\n\n  <div style=\"margin-top:20px; text-align:center;\">\n      <button class=\"md-button md-raised md-primary\" \n              ng-click=\"send({payload:{tab:'STEP 4: 地圖與圖片'}})\">\n          查看詳細地圖與美照\n      </button>\n  </div>\n</div>\n\n<script>\n(function(scope){\n  var apiKey = \"AIzaSyAok-Ur1aqmDzkCdt45NSBpNb4wETXEYZc\"; \n  scope.$watch('msg', function(msg){\n    if(!msg || !msg.payload || !msg.payload.recommendations) return;\n    function loadGoogleMaps(cb) {\n      if (window.google && window.google.maps && window.google.maps.places) return cb();\n      if(document.getElementById('gmap-script-list')) return;\n      var script = document.createElement('script');\n      script.id = 'gmap-script-list';\n      script.src = \"https://maps.googleapis.com/maps/api/js?key=\" + apiKey + \"&libraries=places\";\n      script.async = true;\n      script.onload = cb;\n      document.head.appendChild(script);\n    }\n    loadGoogleMaps(function(){\n        var dummyMap = document.createElement('div');\n        var service = new google.maps.places.PlacesService(dummyMap);\n        msg.payload.recommendations.forEach(function(rec, index){\n            var request = { query: rec.query, fields: ['photos'] };\n            service.findPlaceFromQuery(request, function(results, status) {\n                if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0].photos) {\n                     var imgUrl = results[0].photos[0].getUrl({maxWidth: 200});\n                     var imgEl = document.getElementById('list-img-'+index);\n                     if(imgEl) imgEl.src = imgUrl;\n                }\n            });\n        });\n    });\n  });\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 1250,
+        "y": 560,
+        "wires": [
+            [
+                "a44c20590b94744f"
+            ]
+        ]
+    },
+    {
+        "id": "bdd35349c59f1f34",
+        "type": "ui_template",
+        "z": "0754958db1fe8867",
+        "group": "ececb6ca6b6d4d63",
+        "name": "地圖與圖片(真實類別搜索)",
+        "order": 1,
+        "width": 25,
+        "height": 18,
+        "format": "<style>\n  .container {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 20px;\n    height: 100%;\n    padding: 10px;\n  }\n  .card-section {\n    flex: 1;\n    min-width: 320px;\n    display: flex;\n    flex-direction: column;\n    gap: 15px;\n  }\n  .map-section {\n    flex: 1;\n    min-width: 320px;\n    height: 650px;\n    border-radius: 12px;\n    overflow: hidden;\n    box-shadow: 0 4px 15px rgba(0,0,0,0.1);\n    position: relative;\n    display: flex;\n    flex-direction: column;\n  }\n  /* 交通情境圖區 */\n  .transport-visual {\n      height: 120px;\n      background-size: cover;\n      background-position: center;\n      position: relative;\n      transition: background-image 0.5s ease-in-out;\n  }\n  .transport-overlay {\n      position: absolute;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);\n      padding: 10px;\n      color: white;\n      font-weight: bold;\n      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);\n  }\n  .weather-badge {\n      position: absolute;\n      top: 10px;\n      right: 10px;\n      background: rgba(255,255,255,0.9);\n      padding: 8px 12px;\n      border-radius: 20px;\n      z-index: 100;\n      box-shadow: 0 2px 5px rgba(0,0,0,0.2);\n      font-weight: bold;\n      color: #333;\n  }\n  /* 交通切換按鈕區 */\n  .transport-mode-selector {\n      display: flex;\n      flex-wrap: wrap;\n      background: #f5f5f5;\n      padding: 10px;\n      gap: 5px;\n  }\n  .mode-btn {\n      flex: 1;\n      min-width: 80px;\n      border: none;\n      padding: 8px;\n      border-radius: 6px;\n      cursor: pointer;\n      font-weight: bold;\n      font-size: 0.9em;\n      background: white;\n      color: #555;\n      transition: 0.3s;\n      box-shadow: 0 1px 3px rgba(0,0,0,0.1);\n      text-align: center;\n  }\n  .mode-btn:hover {\n      background: #eee;\n  }\n  .mode-btn.active-car { background: #2196f3; color: white; }\n  .mode-btn.active-hsr { background: #ff9800; color: white; }\n  .mode-btn.active-tra { background: #4caf50; color: white; }\n  .mode-btn.active-bus { background: #9c27b0; color: white; }\n\n  .travel-card {\n    background: white;\n    border-radius: 12px;\n    box-shadow: 0 2px 10px rgba(0,0,0,0.08);\n    overflow: hidden;\n    transition: transform 0.2s;\n    cursor: pointer;\n    border: 2px solid transparent;\n  }\n  .travel-card:hover {\n    transform: translateY(-2px);\n    border-color: #2196f3;\n  }\n  .travel-card.selected {\n    border-color: #2196f3;\n    background-color: #e3f2fd;\n  }\n  .card-img {\n    width: 100%;\n    height: 200px;\n    object-fit: cover;\n    background-color: #eee;\n  }\n  .card-body {\n    padding: 15px;\n  }\n  .card-title {\n    font-size: 1.4em;\n    font-weight: bold;\n    color: #333;\n    margin-bottom: 5px;\n  }\n  .tag {\n    display: inline-block;\n    background: #e0f7fa;\n    color: #006064;\n    padding: 2px 8px;\n    border-radius: 4px;\n    font-size: 0.85em;\n    margin-right: 5px;\n  }\n</style>\n\n<div class=\"container\">\n  <!-- 左側：卡片 -->\n  <div class=\"card-section\">\n      <div ng-repeat=\"r in msg.payload.recommendations\" \n           class=\"travel-card\" \n           ng-class=\"{'selected': r.selected}\"\n           ng-click=\"selectSpot(r, $index)\" \n           ng-if=\"$index < 4\">\n           \n          <img id=\"card-img-{{$index}}\" src=\"https://via.placeholder.com/400x200?text=Loading+Image...\" class=\"card-img\">\n          <div class=\"card-body\">\n              <div class=\"card-title\">{{r.name}}</div>\n              <div>\n                  <span class=\"tag\">{{msg.payload.userInfo.destination}}</span>\n                  <span class=\"tag\" style=\"background:#fff3e0; color:#e65100\">點擊規劃路線</span>\n              </div>\n              <p style=\"color:#666; margin: 10px 0;\">\n                  {{r.note}}\n              </p>\n          </div>\n      </div>\n  </div>\n\n  <!-- 右側：Google 地圖 -->\n  <div class=\"map-section\">\n      <!-- 交通情境圖 -->\n      <div class=\"transport-visual\" ng-style=\"{'background-image': 'url(' + currentModeImage + ')'}\">\n          <div class=\"transport-overlay\">\n              <i class=\"fa\" ng-class=\"currentModeIcon\"></i> {{currentModeText}}\n          </div>\n          <div class=\"weather-badge\">\n              {{msg.payload.weather.icon}} {{msg.payload.weather.temp}}°C {{msg.payload.weather.status}}\n          </div>\n      </div>\n\n      <!-- 交通方式切換器 (4顆按鈕 - 智慧隱藏) -->\n      <div class=\"transport-mode-selector\">\n          <button class=\"mode-btn\" ng-class=\"{'active-car': currentMode === 'CAR'}\" ng-click=\"changeMode('CAR')\">\n              <i class=\"fa fa-car\"></i> 自行開車\n          </button>\n          \n          <button class=\"mode-btn\" \n                  ng-if=\"msg.payload.estimates.hsr.valid\"\n                  ng-class=\"{'active-hsr': currentMode === 'HSR'}\" \n                  ng-click=\"changeMode('HSR')\">\n              <i class=\"fa fa-bolt\"></i> 高鐵\n          </button>\n          \n          <button class=\"mode-btn\" ng-class=\"{'active-tra': currentMode === 'TRA'}\" ng-click=\"changeMode('TRA')\">\n              <i class=\"fa fa-train\"></i> 台鐵火車\n          </button>\n          <button class=\"mode-btn\" ng-class=\"{'active-bus': currentMode === 'BUS'}\" ng-click=\"changeMode('BUS')\">\n              <i class=\"fa fa-bus\"></i> 公車客運\n          </button>\n      </div>\n\n      <div id=\"googleMap\" style=\"width:100%; height:100%; flex:1;\"></div>\n  </div>\n</div>\n\n<script>\n(function(scope){\n  var apiKey = \"AIzaSyAok-Ur1aqmDzkCdt45NSBpNb4wETXEYZc\"; \n  var map, directionsService, directionsRenderer, placesService;\n  \n  scope.currentMode = 'CAR';\n  scope.currentModeImage = 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80'; \n  scope.currentModeText = '舒適自駕遊 - 自由自在';\n  scope.currentModeIcon = 'fa-car';\n\n  var lastOrigin = null;\n  var lastDestination = null;\n\n  var modeSettings = {\n      'CAR': {\n          img: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80',\n          text: '自行開車 - 享受沿途風景',\n          icon: 'fa-car',\n          color: '#2196f3',\n          style: 'solid'\n      },\n      'HSR': {\n          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Taiwan_High_Speed_Rail_700T_train_at_Zuoying_Station.jpg/800px-Taiwan_High_Speed_Rail_700T_train_at_Zuoying_Station.jpg',\n          text: '台灣高鐵 - 極速直達',\n          icon: 'fa-bolt',\n          color: '#ff9800',\n          style: 'solid'\n      },\n      'TRA': {\n          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/TRA_TEMU2000_at_North_of_Xinfeng_Station_20130603.jpg/800px-TRA_TEMU2000_at_North_of_Xinfeng_Station_20130603.jpg',\n          text: '台鐵火車 - 鐵道慢旅',\n          icon: 'fa-train',\n          color: '#4caf50',\n          style: 'solid'\n      },\n      'BUS': {\n          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Kuo-Kuang_Motor_Transport_KKA-1355_20180918.jpg/800px-Kuo-Kuang_Motor_Transport_KKA-1355_20180918.jpg',\n          text: '國道客運 - 經濟實惠',\n          icon: 'fa-bus',\n          color: '#9c27b0',\n          style: 'solid'\n      }\n  };\n\n  scope.changeMode = function(mode) {\n      scope.currentMode = mode;\n      var settings = modeSettings[mode];\n      scope.currentModeImage = settings.img;\n      scope.currentModeText = settings.text;\n      scope.currentModeIcon = settings.icon;\n      \n      if (lastOrigin && lastDestination) {\n          calculateRoute(lastOrigin, lastDestination, mode);\n      }\n  };\n\n  scope.selectSpot = function(rec, index) {\n      scope.msg.payload.recommendations.forEach(function(r){ r.selected = false; });\n      rec.selected = true;\n      \n      // [關鍵修改]：不使用固定的 center 座標，而是觸發 Google Search 找這個點\n      if(placesService) {\n          var request = { query: rec.query, fields: ['geometry', 'name', 'formatted_address'] };\n          placesService.findPlaceFromQuery(request, function(results, status) {\n              if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0]) {\n                  // 拿到真實的餐廳/飯店座標\n                  var destination = results[0].formatted_address || results[0].name;\n                  lastOrigin = scope.msg.payload.userInfo.start;\n                  lastDestination = destination;\n                  calculateRoute(lastOrigin, lastDestination, scope.currentMode);\n              }\n          });\n      }\n  };\n\n  function calculateRoute(origin, destination, modeLabel) {\n      if(!directionsService || !directionsRenderer) return;\n      \n      directionsRenderer.setMap(null);\n      directionsRenderer.setMap(map);\n      \n      var settings = modeSettings[modeLabel];\n      var polyOptions = {\n          strokeColor: settings.color,\n          strokeWeight: 6,\n          strokeOpacity: 0.8\n      };\n      \n      directionsRenderer.setOptions({ polylineOptions: polyOptions });\n      \n      var request = {\n          origin: origin,\n          destination: destination,\n          travelMode: 'DRIVING'\n      };\n\n      if(modeLabel === 'CAR') {\n          request.travelMode = 'DRIVING';\n      } else if (modeLabel === 'HSR' || modeLabel === 'TRA') {\n          request.travelMode = 'TRANSIT';\n          request.transitOptions = {\n              modes: [google.maps.TransitMode.TRAIN],\n              routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS\n          };\n      } else if (modeLabel === 'BUS') {\n          request.travelMode = 'TRANSIT';\n          request.transitOptions = {\n              modes: [google.maps.TransitMode.BUS],\n              routingPreference: google.maps.TransitRoutePreference.LESS_WALKING\n          };\n      }\n\n      directionsService.route(request, function(result, status) {\n          if (status == 'OK') {\n              directionsRenderer.setDirections(result);\n          } else {\n              console.warn(\"Directions failed: \" + status);\n              var modeName = modeSettings[modeLabel].text.split(' - ')[0];\n              window.alert('目前查無從「' + origin + '」到目的地 的 ' + modeName + ' 路線。\\n(可能是時間太晚或無直達班次)');\n          }\n      });\n  }\n\n  scope.$watch('msg', function(msg){\n    if(!msg || !msg.payload || !msg.payload.map) return;\n    var m = msg.payload.map;\n    var startLoc = msg.payload.userInfo.start;\n    var endLoc = msg.payload.userInfo.destination;\n    \n    lastOrigin = startLoc;\n    lastDestination = endLoc;\n\n    function loadGoogleMaps(cb) {\n      if (window.google && window.google.maps && window.google.maps.places) return cb();\n      if(document.getElementById('gmap-script-main')) return;\n      var script = document.createElement('script');\n      script.id = 'gmap-script-main';\n      script.src = \"https://maps.googleapis.com/maps/api/js?key=\" + apiKey + \"&libraries=places\";\n      script.async = true;\n      script.defer = true;\n      script.onload = cb;\n      document.head.appendChild(script);\n    }\n\n    loadGoogleMaps(function(){\n      var mapDiv = document.getElementById('googleMap');\n      if(!mapDiv) return;\n      var center = { lat: m.lat, lng: m.lng };\n      map = new google.maps.Map(mapDiv, {\n        zoom: 13, // 視野適中\n        center: center,\n        mapTypeControl: false,\n        streetViewControl: true\n      });\n\n      directionsService = new google.maps.DirectionsService();\n      directionsRenderer = new google.maps.DirectionsRenderer();\n      directionsRenderer.setMap(map);\n      directionsRenderer.setOptions({ polylineOptions: { strokeColor: '#2196f3', strokeWeight: 6 } });\n\n      placesService = new google.maps.places.PlacesService(map);\n\n      if(startLoc && endLoc) {\n          calculateRoute(startLoc, endLoc, scope.currentMode);\n      }\n\n      // [關鍵]：初始化時，讓前端去抓 4 個真實地點的座標並畫 Marker\n      if(msg.payload.recommendations) {\n          msg.payload.recommendations.forEach(function(rec, index){\n            if(index > 3) return;\n            \n            var request = { query: rec.query, fields: ['geometry', 'name', 'photos'] };\n            placesService.findPlaceFromQuery(request, function(results, status) {\n                if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0]) {\n                     var place = results[0];\n                     var loc = place.geometry.location;\n                     \n                     // 畫真實座標的 Marker\n                     var marker = new google.maps.Marker({\n                        position: loc,\n                        map: map,\n                        title: rec.name,\n                        label: (index + 1).toString()\n                     });\n                     \n                     marker.addListener(\"click\", function() {\n                        scope.selectSpot(rec, index);\n                        scope.$apply();\n                     });\n\n                     // 載入照片\n                     if(place.photos && place.photos[0]) {\n                         var imgUrl = place.photos[0].getUrl({maxWidth: 400, maxHeight: 300});\n                         var imgEl = document.getElementById('card-img-'+index);\n                         if(imgEl) imgEl.src = imgUrl;\n                     }\n                }\n            });\n          });\n      }\n    });\n  });\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 1270,
+        "y": 640,
+        "wires": [
+            [
+                "a44c20590b94744f"
+            ]
+        ]
+    },
+    {
+        "id": "a44c20590b94744f",
+        "type": "ui_ui_control",
+        "z": "0754958db1fe8867",
+        "name": "導航",
+        "events": "all",
+        "x": 1410,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "028309a7c06b41ef",
+        "type": "ui_button",
+        "z": "0754958db1fe8867",
+        "name": "下一步",
+        "group": "a591c83bef0fdc91",
+        "order": 4,
+        "width": 10,
+        "height": 2,
+        "passthru": false,
+        "label": "下一步",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "fa-arrow-right",
+        "payload": "{ \"tab\": \"STEP 2: 旅遊類別\" }",
+        "payloadType": "json",
+        "topic": "next_step",
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "a44c20590b94744f"
+            ]
+        ]
+    },
+    {
+        "id": "a591c83bef0fdc91",
+        "type": "ui_group",
+        "name": "👤 旅客資料",
+        "tab": "6e61aaa13381a357",
+        "order": 1,
+        "disp": true,
+        "width": 10,
+        "collapse": false
+    },
+    {
+        "id": "1e3a5db5e1670133",
+        "type": "ui_group",
+        "name": "🎯 請問您想找什麼？",
+        "tab": "0bcdc0d82664a499",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": false
+    },
+    {
+        "id": "119bc25949fa960d",
+        "type": "ui_group",
+        "name": "✨ 最佳推薦",
+        "tab": "9067acbd83693473",
+        "order": 1,
+        "disp": true,
+        "width": 17,
+        "collapse": false
+    },
+    {
+        "id": "ececb6ca6b6d4d63",
+        "type": "ui_group",
+        "name": "地圖與圖片",
+        "tab": "d06ad4e285774e1a",
+        "order": 1,
+        "disp": true,
+        "width": 25,
+        "collapse": false
+    },
+    {
+        "id": "6e61aaa13381a357",
+        "type": "ui_tab",
+        "name": "STEP 1: 選擇城市",
+        "icon": "fa-map-marker",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0bcdc0d82664a499",
+        "type": "ui_tab",
+        "name": "STEP 2: 旅遊類別",
+        "icon": "fa-th-large",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9067acbd83693473",
+        "type": "ui_tab",
+        "name": "STEP 3: 推薦結果",
+        "icon": "fa-star",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d06ad4e285774e1a",
+        "type": "ui_tab",
+        "name": "STEP 4: 地圖與圖片",
+        "icon": "fa-map",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2b97c99aa5b626c0",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
