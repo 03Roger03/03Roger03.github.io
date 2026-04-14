@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加油站智慧模擬系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>歡迎光臨智慧加油站</h1>
+            <p>請選擇油品並設定加油參數</p>
+        </header>
+
+        <main>
+            <section class="fuel-selector">
+                <button class="fuel-btn" data-type="92" data-price="29.2">92 無鉛汽油</button>
+                <button class="fuel-btn active" data-type="95" data-price="30.8">95 無鉛汽油</button>
+                <button class="fuel-btn" data-type="diesel" data-price="26.5">超級柴油</button>
+            </section>
+
+            <div class="dashboard">
+                <section class="settings">
+                    <div class="input-group">
+                        <label>每公升單價 (NT$)</label>
+                        <input type="number" id="unit-price" value="30.8" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>目標公升數 (或勾選加滿)</label>
+                        <input type="number" id="target-liters" placeholder="例如: 5">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="fill-up"> <label for="fill-up">加滿 [cite: 1127]</label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="display">
+                    <div class="screen">
+                        <div class="stat">
+                            <span class="label">公升 (L)</span>
+                            <span class="value" id="current-liters">0.00</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">總金額 (NT$)</span>
+                            <span class="value" id="total-cost">0.00</span>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button id="start-btn" class="btn-start">開始加油 [cite: 1128]</button>
+                        <button id="stop-btn" class="btn-stop" disabled>停止 [cite: 1129]</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
